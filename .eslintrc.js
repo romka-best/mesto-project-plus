@@ -30,6 +30,10 @@ module.exports = {
     ],
   },
   rules: {
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
+    '@typescript-eslint/no-shadow': 'error',
+    'no-shadow': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',

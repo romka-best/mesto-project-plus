@@ -1,5 +1,4 @@
 import type { Request, Response, NextFunction } from 'express';
-import { Schema } from 'mongoose';
 
 import ClientError from '../errors/ClientError';
 import NotFoundError from '../errors/NotFoundError';
@@ -12,7 +11,7 @@ import getCardsBody from '../helpers/cards/getCardsBody';
 
 import { IRequest } from '../types';
 
-export const createCard = (req: Request, res: Response, next: NextFunction) => {
+export const createCard = (req: IRequest, res: Response, next: NextFunction) => {
   const {
     name,
     link,
@@ -22,6 +21,7 @@ export const createCard = (req: Request, res: Response, next: NextFunction) => {
     .create({
       name,
       link,
+      owner: req.user?._id,
     })
     .then((card) => res.send(getCardBody(card)))
     .catch((err) => {
@@ -62,7 +62,7 @@ export const likeCard = (req: IRequest, res: Response, next: NextFunction) => Ca
   .findByIdAndUpdate(
     req.params.cardId,
     {
-      $addToSet: { likes: new Schema.Types.ObjectId(req.user?._id as string) },
+      $addToSet: { likes: req.user?._id },
     },
     {
       new: true,
@@ -89,9 +89,7 @@ export const likeCard = (req: IRequest, res: Response, next: NextFunction) => Ca
 export const dislikeCard = (req: IRequest, res: Response, next: NextFunction) => Card
   .findByIdAndUpdate(
     req.params.cardId,
-    {
-      $pull: { likes: new Schema.Types.ObjectId(req.user?._id as string) },
-    },
+    { $pull: { likes: req.user?._id } },
     {
       new: true,
       runValidators: true,

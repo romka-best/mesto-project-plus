@@ -26,7 +26,13 @@ export const createUser = (req: Request, res: Response, next: NextFunction) => {
       avatar,
     })
     .then((user) => res.send(getUserBody(user)))
-    .catch(() => next(new ServerError()));
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        next(new ClientError('Your data is not correct'));
+      } else {
+        next(err);
+      }
+    });
 };
 
 export const getUsers = (req: Request, res: Response, next: NextFunction) => User
