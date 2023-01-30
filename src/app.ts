@@ -10,7 +10,7 @@ import NotFoundError from './errors/NotFoundError';
 
 const {
   PORT = 3000,
-  BASE_PATH = 'http://localhost:3000',
+  BASE_PATH = 'http://localhost',
 } = process.env;
 const app = express();
 

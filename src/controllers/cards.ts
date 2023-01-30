@@ -89,6 +89,7 @@ export const likeCard = (req: IRequest, res: Response, next: NextFunction) => Ca
 export const dislikeCard = (req: IRequest, res: Response, next: NextFunction) => Card
   .findByIdAndUpdate(
     req.params.cardId,
+    // @ts-ignore
     { $pull: { likes: req.user?._id } },
     {
       new: true,
