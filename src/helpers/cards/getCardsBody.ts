@@ -2,10 +2,12 @@ import { HydratedDocument } from 'mongoose';
 
 import { ICard } from '../../models/card.types';
 
+import { ICardBody } from './types';
+
 export default function getCardsBody(
   cards: Array<HydratedDocument<unknown, any, ICard> & ICard>,
-): Array<ICard & { _id: any }> {
-  const cardsBody: Array<ICard & { _id: any }> = [];
+): Array<ICardBody> {
+  const cardsBody: Array<ICardBody> = [];
 
   cards.forEach((card) => {
     cardsBody.push({
