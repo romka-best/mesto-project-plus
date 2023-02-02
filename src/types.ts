@@ -1,6 +1,6 @@
 import type { Request } from 'express';
-import type { JwtPayload } from 'jsonwebtoken';
+import type { ObjectId } from 'mongoose';
 
 export interface IRequest extends Request {
-  user?: { _id: JwtPayload | string };
+  user?: { _id: ObjectId | string };
 }

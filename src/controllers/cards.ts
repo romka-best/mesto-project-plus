@@ -49,7 +49,6 @@ export const likeCard = (req: IRequest, res: Response, next: NextFunction) => Ca
     },
     {
       new: true,
-      runValidators: true,
       upsert: false,
     },
   )
@@ -76,7 +75,6 @@ export const dislikeCard = (req: IRequest, res: Response, next: NextFunction) =>
     { $pull: { likes: req.user?._id } },
     {
       new: true,
-      runValidators: true,
       upsert: false,
     },
   )
@@ -102,7 +100,7 @@ export const deleteCard = (req: IRequest, res: Response, next: NextFunction) => 
     (card) => {
       if (!card) {
         throw new NotFoundError(NotFoundError.getMessage('card', req.params.id));
-      } else if (card.owner !== req.user?._id) {
+      } else if (card.owner.toString() !== req.user?._id) {
         throw new ForbiddenError('You cannot delete not your card');
       }
 

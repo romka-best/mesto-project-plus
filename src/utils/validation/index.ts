@@ -22,8 +22,8 @@ export const signInValidation = celebrate({
   [Segments.BODY]: Joi
     .object()
     .keys({
-      email: EMAIL_VALIDATION,
-      password: PASSWORD_VALIDATION,
+      email: EMAIL_VALIDATION.required(),
+      password: PASSWORD_VALIDATION.required(),
     }),
 });
 
@@ -31,8 +31,8 @@ export const signUpValidation = celebrate({
   [Segments.BODY]: Joi
     .object()
     .keys({
-      email: EMAIL_VALIDATION,
-      password: PASSWORD_VALIDATION,
+      email: EMAIL_VALIDATION.required(),
+      password: PASSWORD_VALIDATION.required(),
       name: NAME_VALIDATION,
       about: ABOUT_VALIDATION,
       avatar: AVATAR_VALIDATION,
@@ -45,8 +45,8 @@ export const updateUserValidation = celebrate({
   [Segments.BODY]: Joi
     .object()
     .keys({
-      name: NAME_VALIDATION,
-      about: ABOUT_VALIDATION,
+      name: NAME_VALIDATION.required(),
+      about: ABOUT_VALIDATION.required(),
     }),
 });
 
@@ -70,7 +70,7 @@ export const createCardValidation = celebrate({
   [Segments.BODY]: Joi
     .object()
     .keys({
-      name: NAME_VALIDATION,
-      link: LINK_VALIDATION,
+      name: NAME_VALIDATION.required(),
+      link: LINK_VALIDATION.required(),
     }),
 });

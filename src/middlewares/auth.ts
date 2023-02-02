@@ -1,5 +1,5 @@
 import { Response, NextFunction } from 'express';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 import AuthRequiredError from '../errors/AuthRequiredError';
 
@@ -23,7 +23,8 @@ export default (req: IRequest, res: Response, next: NextFunction) => {
     throw new AuthRequiredError('Need auth');
   }
 
-  req.user = payload as { _id: JwtPayload };
+  // @ts-ignore
+  req.user = { _id: payload._id };
 
   next();
 };
